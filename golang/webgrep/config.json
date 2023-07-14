@@ -1,0 +1,9 @@
+
+{
+    "hostaddr": "localhost:8137",
+    "wwwroot":  "./static",
+    "tlscert":  "./tlscert.crt",
+    "tlskey":   "./tlscert.key",
+    "include":  ["/home/wayne/scripts"],
+    "suffix":   [".txt",".sql",".bat"]
+}
