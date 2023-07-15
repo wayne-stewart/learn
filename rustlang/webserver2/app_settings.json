@@ -1,0 +1,11 @@
+{ 
+    "static_file_handler" : {
+        "wwwroot" : "/Users/waynestewart/Projects/rust/server/www",
+        "file_mapping" : [
+            { "ext" : "js",    "type" : "text/javascript" },
+            { "ext" : "css",   "type" : "text/css" },
+            { "ext" : "html",  "type" : "text/html" },
+            { "ext" : "jpg",   "type" : "image/jpeg" }
+        ]
+    }
+}
