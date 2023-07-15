@@ -1,0 +1,70 @@
+
+* {
+	padding:0em;
+	margin:0em;
+	font-size:1em;
+}
+
+body {
+	padding:1em;
+}
+
+.commandBlock {
+	display:inline-block;
+	border-width: 1px;
+	border-color: #000000;
+	border-style: solid;
+	padding: 5px;
+	border-radius: 10px;
+	margin-left:1em;
+}
+
+.commandBlockFirst {
+	margin-left:0em;
+}
+
+.commandBlock label {
+	display:inline-block;
+	width: 120px;
+}
+
+.commandBlock input[type=number] {
+	width: 40px;
+}
+
+.blockRow {
+	margin-top:1em;
+	overflow:hidden;
+}
+
+.blockRow > label {
+	width:100%;
+	display:inline-block;
+}
+
+.blockRow > div {
+	width:auto;
+	height:5.5em;
+	border:thin solid black;
+	display:inline-block;
+	margin-right:1em;
+}
+
+.sortBlock > div {
+	width:.5em;
+	height:5em;
+	background-color:black;
+	display:inline-block;
+	margin:.25em;
+}
+
+.sortBlock > div.active {
+	background-color:red;
+}
+
+.sortBlock > div.maintainHeight {
+	height:5em;
+	width:0px;
+	margin-left:0px;
+	margin-right:0px;
+}

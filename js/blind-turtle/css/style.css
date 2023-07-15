@@ -1,0 +1,159 @@
+* {
+    padding:0px;
+    margin:0px;
+    border:0px;
+    font-size:16px;
+    line-height:16px;
+    color:#607B8B;
+}
+
+template {
+    display:none;
+}
+
+.bg_lightseagreen {
+    background-color:#20B2AA;
+}
+.bg_lightskyblue {
+    background-color:#87CEFA;
+}
+.bg_lightskyblue1 {
+    background-color:#B0E2FF;
+}
+.bg_lightskyblue2 {
+    background-color:#A4D3EE;
+}
+.bg_lightskyblue3 {
+    background-color:#8DB6CD;
+}
+.bg_lightskyblue4 {
+    background-color:#607B8B;
+}
+.bg_lightslateblue {
+    background-color:#8470FF;
+}
+
+html, body {
+    width:100%;
+    height:100%;
+}
+
+nav {
+    background-color:#B0E2FF;
+    width:100%;
+    position:fixed;
+}
+
+nav button.active {
+    background-color:white;
+    border-color:white;
+}
+
+nav button.active:hover {
+    background-color:white;
+    border-color:white;
+}
+
+div.nav_spacer {
+    padding-top:5px;
+    padding-bottom:5px;
+    margin-bottom:16px;
+}
+div.nav_spacer_double {
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-bottom:16px;
+}
+
+nav button {
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:10px;
+    padding-right:10px;
+    border-width:3px;
+    border-style:solid;
+    border-color:#B0E2FF;
+    background-color:#B0E2FF;
+    cursor:pointer;
+    display:inline-block;
+}
+nav button:hover {
+    border-color:#87CEFA;
+    background-color:#87CEFA;
+}
+nav button {
+    cursor:pointer;
+}
+
+#popover_message {
+    position:absolute;
+    width:auto;
+    height:auto;
+    font-size:25px;
+}
+
+.form-control {
+    display:block;
+    margin-bottom:10px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.form-control > input {
+    width:100%;
+    padding:5px;
+    border:1px solid #607B8B;
+}
+
+.form-control > input[type=file] {
+    padding:0px;
+    border:none;
+}
+
+.green {
+    color:green;
+}
+
+.red {
+    color:red;
+}
+
+.about_view {
+    padding-left:10px;
+    padding-right:10px;
+}
+.about_view p.indent {
+    padding-left:30px;
+}
+.about_view p.indent2 {
+    padding-left:60px;
+}
+
+.about_view label {
+    display:inline-block;
+    font-weight:bold;
+}
+
+input.error {
+    border-color:red;
+}
+span.error {
+    color:red;
+}
+
+p.error {
+    color:red;
+}
+
+p.editable {
+    min-height:200px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:10px;
+}
+
+p.textblock {
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:10px;
+}

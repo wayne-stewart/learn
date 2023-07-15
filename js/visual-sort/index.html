@@ -1,0 +1,54 @@
+<html>
+<head>
+	
+	<title>js-visual-sort</title>
+	
+	<link rel='stylesheet' type='text/css' href='style.css'>
+	
+	<script src='App.js'></script>
+	<script src='App.Block.js'></script>
+	<script src='Sorts.BubbleSort.js'></script>
+	<script src='Sorts.SelectionSort.js'></script>
+	<script src='Sorts.InsertionSort.js'></script>
+	<script src='Sorts.MergeSort.js'></script>
+	<script src='Sorts.QuickSort.js'></script>
+	
+	<script>
+	
+	App.init();
+	
+	</script>
+	
+</head>
+<body>
+	<div class="commandRibbon">
+		<div class="commandBlock commandBlockFirst">
+			<label for='BubbleSort'><input class='sortalgo' id='BubbleSort' type='checkbox' checked /> Bubble Sort</label>
+			<label for='SelectionSort'><input class='sortalgo' id='SelectionSort' type='checkbox' checked /> Selection Sort</label>
+			<br />
+			<label for='InsertionSort'><input class='sortalgo' id='InsertionSort' type='checkbox' checked /> Insertion Sort</label>
+			<label for='MergeSort'><input class='sortalgo' id='MergeSort' type='checkbox' checked /> Merge Sort</label>
+			<br />
+			<label for='QuickSort'><input class='sortalgo' id='QuickSort' type='checkbox' checked /> Quick Sort</label>
+		</div>
+		<div class="commandBlock">
+			<label for='Ascending'><input class='initialorder' id='Ascending' type='checkbox' /> Ascending</label>
+			<br />
+			<label for='Descending'><input class='initialorder' id='Descending' type='checkbox' /> Descending</label>
+			<br />
+			<label for='Randomized'><input class='initialorder' id='Randomized' type='checkbox' checked /> Randomized</label>
+		</div>
+		<div class="commandBlock">
+			<label for='StepDelay'><input id='StepDelay' type='number' step='5' value='25' min='0' max='95' /> Step Delay</label>
+			<br />
+			<label for='BlockSize'><input id='BlockSize' type='number' step='5' value='50' min='10' max='95' /> Block Size</label>
+		</div>
+		<div class="commandBlock">
+			<input id="start" type="button" value="Start" />
+			<input id="pause" type="button" value="Pause" />
+			<input id="reset" type="button" value="Reset" />
+		</div>
+	</div>
+	<div id="app"></div>
+</body>
+</html>

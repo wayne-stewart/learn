@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Mortal Kombat</title>
+        <style>
+            * {
+                padding:0px;
+                margin:0px;
+            }
+        </style>
+        <script src="js/game.js"></script>
+        <script src="js/asset_manager.js"></script>
+        <script src="js/asset_manifest.js"></script>
+        <script src="js/arena.js"></script>
+        <script src="js/arena.jade_desert.js"></script>
+        <script src="js/player.js"></script>
+        <script src="js/player.liu_kang.js"></script>
+        <script src="js/sprite.js"></script>
+    </head>
+    <body onload="body_onload()">
+        <script>
+            function body_onload() {
+                game = new Game();
+                game.start();
+            }
+        </script>
+    </body>
+</html>

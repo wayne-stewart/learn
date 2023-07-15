@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>Blind Turtle</title>
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script defer src="lib/FileSaver.min.js"></script>
+    <script defer src="lib/stringview.js"></script>
+    <script defer src="https://sdk.amazonaws.com/js/aws-sdk-2.506.0.min.js"></script>
+
+    <script defer src="js/test.js"></script>
+    <script defer src="js/utility.js"></script>
+    <script defer src="js/utility.test.js"></script>
+    <script defer src="js/dom_animator.js"></script>
+    <script defer src="js/log.js"></script>
+    <script defer src="js/crypto.js"></script>
+    <script defer src="js/model.js"></script>
+    <script defer src="js/ui.v1.js"></script>
+    <script defer src="js/app.js"></script>
+</head>
+<template id="view_about">
+    <label>Name:</label>
+    <p class="indent">Blind Turtle v0.1</p>
+    <br />
+    <label>Description:</label>
+    <p class="indent">
+        The goal of this software is to provide means for securing private information
+        like credit cards and passwords. You can choose to save the files locally or
+        choose your own store that can be synced across devices. This software is built 
+        with the principle of ZERO server trust. The server has no capability to 
+        decrypt your document. If you lose your password, there is no possibility 
+        of data recovery ( outside possibly some professional cryptanalysis services. )
+    </p>
+    <br />
+    <label>License:</label>
+    <p class="indent">
+            MIT License<br />
+            Copyright (c) 2019 Wayne Stewart<br />
+            Permission is hereby granted, free of charge, to any person obtaining a copy
+            of this software and associated documentation files (the "Software"), to deal
+            in the Software without restriction, including without limitation the rights
+            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+            copies of the Software, and to permit persons to whom the Software is
+            furnished to do so, subject to the following conditions:
+    </p>
+    <br />
+    <label>Disclaimer:</label>
+    <p class="indent">
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+    </p>
+    <br />
+    <label>Attribution:</label>
+    <p class="indent">
+        <label>Filesaver.js</label><br />
+        By Eli Grey, <a href="http://eligrey.com">eligrey.com</a>
+    </p>
+</template>
+<template id="view_master_password_text">
+    The master password will be used to encrypt your data and your local configuration. You can leave it
+    blank, but then anyone will be able to read your private data.
+    <span class="red">If you lose your master password, your data will be unretrievable.</span> Make sure your 
+    Master Password is long, unique, strong, and memorable.
+</template>
+<template id="view_savelocal_text">
+    If no file name is specified a default will be used.<br />
+    While a password is not required, it is HIGHLY recommended you use a strong one.
+</template>
+<body>
+    <h1>Web Browser Validation Started</h1>
+    <h3>If validation does not complete, or has errors, this web browser cannot be used.</h3>
+    <ul id="test_container"></div>
+</body>
+</html>
