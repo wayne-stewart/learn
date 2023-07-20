@@ -1,0 +1,26 @@
+# compiler objects
+*.slo
+*.lo
+*.o
+*.obj
+
+# libraries
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# exe
+*.exe
+*.out
+*.app
+
+# build directory
+build
+build/*
+
+# remedy
+*.rdbg
+
+
