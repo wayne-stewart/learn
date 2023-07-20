@@ -17,6 +17,7 @@ var handleRequest = function(request, response) {
 	});
 	request.on('end', () => {
 		response.end(txt_data);
+		console.log(txt_data);
 	});
     
 	/*fs.readFile(__dirname + request.url, function(error, data){
