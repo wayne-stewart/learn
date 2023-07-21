@@ -48,23 +48,23 @@ float GetBatteryPercentage() {
 }
 
 void print_display(float batt_start, float batt_now, time_t ts_start) {
-		char buffer[100];
-		memset(buffer, 0, 100);
-		if (batt_start == batt_now) {
-			sprintf(buffer, "Battery: %.2f%%", batt_now);
-		}
-		else {
-			time_t ts_now;
-			time(&ts_now);
-			float elapsed_seconds = difftime(ts_now, ts_start);
-			float batt_percent_diff = batt_start - batt_now;
-			float batt_percent_per_second = batt_percent_diff / elapsed_seconds;
-			float remaining_seconds = batt_now / batt_percent_per_second;
-			float remaining_hours = remaining_seconds / 3600;
-			sprintf(buffer, "Battery: %.2f%%, %.2f hours remaining", batt_now, remaining_hours);	
-		}
-		printf("%s   \r", buffer);
-		fflush(stdout);
+	char buffer[100];
+	memset(buffer, 0, 100);
+	if (batt_start == batt_now) {
+		sprintf(buffer, "Battery: %.2f%%", batt_now);
+	}
+	else {
+		time_t ts_now;
+		time(&ts_now);
+		float elapsed_seconds = difftime(ts_now, ts_start);
+		float batt_percent_diff = batt_start - batt_now;
+		float batt_percent_per_second = batt_percent_diff / elapsed_seconds;
+		float remaining_seconds = batt_now / batt_percent_per_second;
+		float remaining_hours = remaining_seconds / 3600;
+		sprintf(buffer, "Battery: %.2f%%, %.2f hours remaining", batt_now, remaining_hours);	
+	}
+	printf("%s   \r", buffer);
+	fflush(stdout);
 }
 
 int main(int argc, char **argv) {
