@@ -3,6 +3,8 @@
 *.lo
 *.o
 *.obj
+*.pdb
+*.dbg
 
 # libraries
 *.dll
@@ -19,6 +21,8 @@
 # build directory
 build
 build/*
+target
+target/*
 
 # remedy
 *.rdbg
