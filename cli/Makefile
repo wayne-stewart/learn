@@ -1,9 +1,10 @@
 
 build:
-	gcc -o js -Wall -Wextra -Wpedantic $(wildcard *.c)
+	mkdir -p build
+	gcc -o build/js -Wall -Wextra -Wpedantic $(wildcard *.c)
 
 test: build
-	./js "fs.ls();"
+	build/js "fs.ls();"
 
 clean:
 	rm -f *.o
