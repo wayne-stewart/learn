@@ -1,7 +1,13 @@
 
 #include "list.h"
 
-void make_list(PList list, size_t item_size, size_t capacity) {
+PList list_make(size_t item_size, size_t capacity) {
+	PList list = malloc(sizeof(List));
+	list_init(list, item_size, capacity);
+	return list;
+}
+
+void list_init(PList list, size_t item_size, size_t capacity) {
 	list->Length = 0;
 	list->Capacity = capacity;
 	list->ItemSize = item_size;

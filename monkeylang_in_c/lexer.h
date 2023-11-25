@@ -10,7 +10,7 @@ typedef struct t_Lexer {
 	int		Length;
 } Lexer, *PLexer;
 
-void make_lexer(PLexer lexer, char *text); 
+void lexer_init(PLexer lexer, char *text); 
 
 int lexer_next_token(PLexer lexer, PToken token);
 

@@ -13,7 +13,8 @@ typedef struct t_List {
 	size_t ItemSize;
 } List, *PList;
 
-void make_list(PList list, size_t item_size, size_t capacity);
+PList list_make(size_t item_size, size_t capacity);
+void list_init(PList list, size_t item_size, size_t capacity);
 void * list_get(PList list, size_t index);
 void * list_push(PList list);
 void * list_pop(PList list);

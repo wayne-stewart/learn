@@ -12,7 +12,7 @@ typedef struct t_Parser {
 	PToken PeekToken;
 } Parser, *PParser;
 
-void make_parser(PParser parser, PLexer lexer);
+void parser_init(PParser parser, PLexer lexer);
 
 void parser_next_token(PParser parser);
 

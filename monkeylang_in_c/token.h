@@ -48,7 +48,7 @@ typedef struct t_Token {
 	int		TokenType;
 } Token, *PToken;
 
-void print_token(PToken ptoken);
+void token_print(PToken ptoken);
 
 
 

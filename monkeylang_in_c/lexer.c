@@ -2,7 +2,7 @@
 #include <string.h>
 #include "lexer.h"
 
-void make_lexer(PLexer lexer, char *text) {
+void lexer_init(PLexer lexer, char *text) {
 	lexer->Text = text;
 	lexer->Position = 0;
 	lexer->Length = strlen(text);
