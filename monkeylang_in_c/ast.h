@@ -30,7 +30,7 @@ typedef struct {
 
 typedef struct {
 	PList Statements;
-} AstProgram;
+} AstProgram, *PAstProgram;
 
 #endif
 

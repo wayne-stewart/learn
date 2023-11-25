@@ -6,13 +6,13 @@
 
 typedef struct t_Lexer {
 	char	*Text;
-	size_t	Position;
-	size_t	Length;
+	int		Position;
+	int		Length;
 } Lexer, *PLexer;
 
 void make_lexer(PLexer lexer, char *text); 
 
-int next_token(PLexer lexer, PToken token);
+int lexer_next_token(PLexer lexer, PToken token);
 
 
 

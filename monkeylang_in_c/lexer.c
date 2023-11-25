@@ -123,7 +123,7 @@ void make_token(
 	token->TokenType = token_type;
 }
 
-int next_token(PLexer lexer, PToken token) {
+int lexer_next_token(PLexer lexer, PToken token) {
 	eat_whitespace(lexer);
 	char c1, c2;
 	size_t start_pos = lexer->Position;

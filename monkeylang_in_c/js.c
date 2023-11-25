@@ -4,6 +4,7 @@
 #include "list.h"
 #include "token.h"
 #include "lexer.h"
+#include "parser.h"
 
 #define RETURNIF(check) if (check) {\
 	printf("USAGE: js \"<command string here>\"\n");\
@@ -22,7 +23,7 @@ int main(int argc, char **argv) {
 	List tokens;
 	make_list(&tokens, sizeof(Token), 5);
 
-	while(next_token(&lexer, (PToken)list_push(&tokens)));
+	while(lexer_next_token(&lexer, (PToken)list_push(&tokens)));
 
 	for (size_t i = 0; i < tokens.Length; i++) {
 		print_token(list_get(&tokens, i));

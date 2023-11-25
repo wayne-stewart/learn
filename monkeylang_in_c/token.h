@@ -42,10 +42,6 @@ enum TOKEN_ENUM {
 	FOREACH_TOKEN(GENERATE_ENUM)
 };
 
-static const char *TOKEN_NAMES[] = {
-	FOREACH_TOKEN(GENERATE_STRING)
-};
-
 typedef struct t_Token {
 	char	*Text;
 	int 	TextLength;
