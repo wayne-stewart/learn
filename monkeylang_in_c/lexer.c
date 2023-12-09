@@ -1,4 +1,5 @@
 
+#include <stdlib.h>
 #include <string.h>
 #include "lexer.h"
 
@@ -112,97 +113,99 @@ int lookup_identifier(const char *identifier, int length) {
 	return TOKEN_IDENTIFIER;
 }
 
-void make_token(
+PToken make_token(
 	PLexer lexer, 
-	PToken token, 
 	size_t pos,
 	int length,
 	int token_type) {
+	PToken token = malloc(sizeof(Token));
 	token->Text = lexer->Text + pos;
 	token->TextLength = length;
 	token->TokenType = token_type;
+	return token;
 }
 
-int lexer_next_token(PLexer lexer, PToken token) {
+PToken lexer_next_token(PLexer lexer) {
 	eat_whitespace(lexer);
 	char c1, c2;
 	size_t start_pos = lexer->Position;
 	c1 = next_char(lexer);
 	c2 = peek_char(lexer);
+	PToken token;
 
 	if (is_literal_start(c1)) {
 		eat_literal(lexer);
 		int length = lexer->Position - start_pos;
-		make_token(lexer, token, start_pos, length, TOKEN_IDENTIFIER);
+		token = make_token(lexer, start_pos, length, TOKEN_IDENTIFIER);
 		token->TokenType = lookup_identifier(token->Text, length);
 	}
 	else if (is_digit(c1)) {
 		eat_number(lexer);
 		int length = lexer->Position - start_pos;
-		make_token(lexer, token, start_pos, length, TOKEN_NUMBER);
+		token = make_token(lexer, start_pos, length, TOKEN_NUMBER);
 	}
 	else if (c1 == '=' && c2 == '=') {
-		make_token(lexer, token, start_pos, 2, TOKEN_EQUALS);
+		token = make_token(lexer, start_pos, 2, TOKEN_EQUALS);
 		next_char(lexer);
 	}
 	else if (c1 == '!' && c2 == '=') {
-		make_token(lexer, token, start_pos, 2, TOKEN_NOT_EQUALS);
+		token = make_token(lexer, start_pos, 2, TOKEN_NOT_EQUALS);
 		next_char(lexer);
 	}
 	else if (c1 == '\'' || c1 == '"' || c1 == '`') {
 		if (eat_string(lexer, c1)) {
 			int length = lexer->Position - start_pos;
-			make_token(lexer, token, start_pos, length, TOKEN_STRING);
+			token = make_token(lexer, start_pos, length, TOKEN_STRING);
 		}
 		else {
 			// EOF reached before end of string
-			make_token(lexer, token, start_pos, 1, TOKEN_INVALID);
+			token = make_token(lexer, start_pos, 1, TOKEN_INVALID);
 			return 0;
 		}
 	}
 	else if (c1 == '.')
-		make_token(lexer, token, start_pos, 1, TOKEN_PERIOD);
+		token = make_token(lexer, start_pos, 1, TOKEN_PERIOD);
 	else if (c1 == '(')
-		make_token(lexer, token, start_pos, 1, TOKEN_LPAREN);
+		token = make_token(lexer, start_pos, 1, TOKEN_LPAREN);
 	else if (c1 == ')')
-		make_token(lexer, token, start_pos, 1, TOKEN_RPAREN);
+		token = make_token(lexer, start_pos, 1, TOKEN_RPAREN);
 	else if (c1 == '{')
-		make_token(lexer, token, start_pos, 1, TOKEN_LBRACE);
+		token = make_token(lexer, start_pos, 1, TOKEN_LBRACE);
 	else if (c1 == '}')
-		make_token(lexer, token, start_pos, 1, TOKEN_RBRACE);
+		token = make_token(lexer, start_pos, 1, TOKEN_RBRACE);
 	else if (c1 == '[')
-		make_token(lexer, token, start_pos, 1, TOKEN_LBRACKET);
+		token = make_token(lexer, start_pos, 1, TOKEN_LBRACKET);
 	else if (c1 == ']')
-		make_token(lexer, token, start_pos, 1, TOKEN_RBRACKET);
+		token = make_token(lexer, start_pos, 1, TOKEN_RBRACKET);
 	else if (c1 == ';')
-		make_token(lexer, token, start_pos, 1, TOKEN_SEMICOLON);
+		token = make_token(lexer, start_pos, 1, TOKEN_SEMICOLON);
 	else if (c1 == ',')
-		make_token(lexer, token, start_pos, 1, TOKEN_COMMA);
+		token = make_token(lexer, start_pos, 1, TOKEN_COMMA);
 	else if (c1 == '+')
-		make_token(lexer, token, start_pos, 1, TOKEN_PLUS);
+		token = make_token(lexer, start_pos, 1, TOKEN_PLUS);
 	else if (c1 == '-')
-		make_token(lexer, token, start_pos, 1, TOKEN_MINUS);
+		token = make_token(lexer, start_pos, 1, TOKEN_MINUS);
 	else if (c1 == '*')
-		make_token(lexer, token, start_pos, 1, TOKEN_STAR);
+		token = make_token(lexer, start_pos, 1, TOKEN_STAR);
 	else if (c1 == '/')
-		make_token(lexer, token, start_pos, 1, TOKEN_SLASH);
+		token = make_token(lexer, start_pos, 1, TOKEN_SLASH);
 	else if (c1 == '=')
-		make_token(lexer, token, start_pos, 1, TOKEN_ASSIGN);
+		token = make_token(lexer, start_pos, 1, TOKEN_ASSIGN);
 	else if (c1 == '!')
-		make_token(lexer, token, start_pos, 1, TOKEN_BANG);
+		token = make_token(lexer, start_pos, 1, TOKEN_BANG);
 	else if (c1 == '<')
-		make_token(lexer, token, start_pos, 1, TOKEN_LT);
+		token = make_token(lexer, start_pos, 1, TOKEN_LT);
 	else if (c1 == '>')
-		make_token(lexer, token, start_pos, 1, TOKEN_GT);
+		token = make_token(lexer, start_pos, 1, TOKEN_GT);
 	else if (c1 == 0) {
-		make_token(lexer, token, 0, 0, TOKEN_EOF);
+		token = make_token(lexer,  0, 0, TOKEN_EOF);
 		return 0;
 	}
 	else {
-		make_token(lexer, token, start_pos, 1, TOKEN_INVALID);
+		token = make_token(lexer, start_pos, 1, TOKEN_INVALID);
 		return 0;
 	}
-	return 1;
+	return token;
 }
 
 

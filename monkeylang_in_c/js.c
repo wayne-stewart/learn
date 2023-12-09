@@ -23,13 +23,19 @@ int main(int argc, char **argv) {
 	List tokens;
 	list_init(&tokens, sizeof(Token), 5);
 
-	while(lexer_next_token(&lexer, (PToken)list_push(&tokens)));
+	//while(lexer_next_token(&lexer, (PToken)list_push(&tokens)));
 
-	for (size_t i = 0; i < tokens.Length; i++) {
+	/*for (size_t i = 0; i < tokens.Length; i++) {
 		token_print(list_get(&tokens, i));
 	}
 
 	printf("complete\n");
+	*/
+
+	Parser parser;
+	parser_init(&parser, &lexer);
+	parser_parse_program(&parser);
+
 	return 0;
 }
 

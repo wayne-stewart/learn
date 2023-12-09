@@ -16,7 +16,7 @@ void parser_init(PParser parser, PLexer lexer);
 
 void parser_next_token(PParser parser);
 
-void parser_parse_program(PParser parser, PAstProgram program);
+void parser_parse_program(PParser parser);
 
 #endif
 

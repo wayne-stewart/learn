@@ -17,8 +17,8 @@ typedef struct {
 } AstExpression;
 
 typedef struct {
-	AstIdentifier *Identifier;
-	AstExpression *Expression;
+	AstIdentifier Identifier;
+	AstExpression Expression;
 } AstLetStatement;
 
 typedef struct {
@@ -26,7 +26,7 @@ typedef struct {
 	union {
 		AstLetStatement Let;
 	} Statement;
-} AstStatement;
+} AstStatement, *PAstStatement;
 
 typedef struct {
 	PList Statements;
