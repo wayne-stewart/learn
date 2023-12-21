@@ -8,8 +8,7 @@ struct FileHash {
     hash: String,
 }
 
-fn main() -> io::Result<()> {
-
+fn run_hash_rename(extension: &str) -> io::Result<()> {
     let mut hashes : Vec<FileHash> = Vec::new();
 
     let entries = fs::read_dir(".").unwrap();
@@ -17,6 +16,9 @@ fn main() -> io::Result<()> {
     for wrapped_entry in entries {
         let entry = wrapped_entry.unwrap();
         let path = entry.path().display().to_string();
+        if !path.ends_with(extension) {
+            continue;
+        }
         let data = fs::read(&path).unwrap();
         let hash_value = blake3::hash(&data).to_hex().to_string();
 
@@ -40,4 +42,17 @@ fn main() -> io::Result<()> {
     }
 
     Ok(())
+}
+
+fn main() -> io::Result<()> {
+    let arg_switch = std::env::args().nth(1).unwrap_or("".to_string());
+    if arg_switch == "-e" {
+        let ext = std::env::args().nth(2).unwrap_or("".to_string());
+        if ext.len() > 0 {
+            return run_hash_rename(&ext);
+        }
+    }
+    println!("Usage:   hash_rename -e <extension>");
+    println!("Example: hash_rename -e .jpg");
+    return Ok(());
 }
