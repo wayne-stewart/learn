@@ -69,6 +69,7 @@ use winapi::{
             WS_CHILD,
             WS_BORDER,
             ES_LEFT,
+            ES_AUTOHSCROLL,
             CreateWindowExW,
 
             // Message Loop
@@ -155,20 +156,37 @@ fn create_window(name: &str, title: &str) -> HWND {
     }
 }
 
+fn create_label(parent_hwnd: HWND, control_id: u32, text: &str) -> HWND {
+    unsafe {
+        let hwnd = CreateWindowExW(
+            0,
+            win32_string("STATIC").as_ptr(),
+            win32_string(text).as_ptr(),
+            WS_CHILD | WS_VISIBLE | ES_LEFT,
+            5, 5, // x, y
+            200, 25, // w, h
+            parent_hwnd,
+            control_id as HMENU,
+            GetWindowLongPtrW(parent_hwnd, GWLP_HINSTANCE) as HINSTANCE,
+            null_mut());
+        hwnd
+    }
+}
+
 fn create_textbox(parent_hwnd: HWND, control_id: u32) -> HWND {
     unsafe {
-    let hwnd = CreateWindowExW(
-        0,
-        win32_string("EDIT").as_ptr(),
-        null_mut(),
-        WS_BORDER | WS_CHILD | WS_VISIBLE | ES_LEFT,
-        5, 5, // x,y
-        50, 30, // w, h
-        parent_hwnd,
-        control_id as HMENU, //ID_EDITCHILD as HMENU,
-        GetWindowLongPtrW(parent_hwnd, GWLP_HINSTANCE) as HINSTANCE,
-        null_mut());
-    hwnd
+        let hwnd = CreateWindowExW(
+            0,
+            win32_string("EDIT").as_ptr(),
+            null_mut(),
+            WS_BORDER | WS_CHILD | WS_VISIBLE | ES_LEFT | ES_AUTOHSCROLL,
+            5, 35, // x,y
+            200, 25, // w, h
+            parent_hwnd,
+            control_id as HMENU, //ID_EDITCHILD as HMENU,
+            GetWindowLongPtrW(parent_hwnd, GWLP_HINSTANCE) as HINSTANCE,
+            null_mut());
+        hwnd
     }
 }
 
@@ -179,7 +197,8 @@ unsafe extern "system" fn win32_wnd_proc(
     lparam: LPARAM) -> LRESULT {
     match msg {
         WM_CREATE => {
-            let _ = create_textbox(hwnd, EDIT_CONTROL_ID);
+            create_label(hwnd, LABEL_CONTROL_ID, "Label1");
+            create_textbox(hwnd, EDIT_CONTROL_ID);
             0
         },
         WM_DESTROY => { PostQuitMessage(0); 0 },
@@ -188,6 +207,7 @@ unsafe extern "system" fn win32_wnd_proc(
 }
 
 static EDIT_CONTROL_ID: u32 = 10;
+static LABEL_CONTROL_ID: u32 = 11;
 
 fn main() {
     //unsafe { AllocConsole(); }
