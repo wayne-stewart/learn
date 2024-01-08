@@ -6,4 +6,4 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [target.'cfg(windows)'.dependencies]
-winapi = { version = "0.3.9", features = ["winuser","windowsx","winbase","libloaderapi"] }
+winapi = { version = "0.3.9", features = ["winuser","windowsx","winbase","libloaderapi", "commctrl", "consoleapi"] }

@@ -20,13 +20,15 @@ use winapi::{
             HWND,
             RECT,
             HCURSOR,
-            HBRUSH
+            HBRUSH,
+            HMENU
         },
         minwindef::{
             LRESULT,
             LPARAM,
             WPARAM,
-            UINT
+            UINT,
+            HINSTANCE
         },
         ntdef::{
             LONG,
@@ -34,12 +36,20 @@ use winapi::{
         }
     },
     um::{
+        consoleapi::{
+            AllocConsole
+        },
         libloaderapi::{
             GetModuleHandleW,
         },
         wingdi::{
             GetStockObject,
             WHITE_BRUSH
+        },
+        commctrl::{
+            INITCOMMONCONTROLSEX,
+            InitCommonControlsEx,
+            ICC_BAR_CLASSES
         },
         winuser::{
         // WNDCLASS
@@ -50,10 +60,15 @@ use winapi::{
         CW_USEDEFAULT,
         RegisterClassW,
         SetClassLongW,
+        GetWindowLongPtrW,
+        GWLP_HINSTANCE,
 
         // CreateWindow
         WS_OVERLAPPEDWINDOW,
         WS_VISIBLE,
+        WS_CHILD,
+        WS_BORDER,
+        ES_LEFT,
         CreateWindowExW,
 
         // Message Loop
@@ -92,7 +107,7 @@ use winapi::{
         IDI_APPLICATION,
 
         // Color
-        COLOR_WINDOW
+        COLOR_WINDOW,
     }}
 };
 
@@ -114,7 +129,7 @@ fn create_window(name: &str, title: &str) -> HWND {
             cbClsExtra: 0,
             cbWndExtra: 0,
             hIcon: LoadIconW(null_mut(), IDI_APPLICATION),
-            hCursor: null_mut(),
+            hCursor: LoadCursorW(null_mut(), IDC_ARROW),
             hbrBackground: white_brush as HBRUSH,
             lpszMenuName: null_mut()
         };
@@ -122,20 +137,37 @@ fn create_window(name: &str, title: &str) -> HWND {
         RegisterClassW(&wnd_class);
 
         let handle = CreateWindowExW(
-            0,
-            name.as_ptr(),
-            title.as_ptr(),
-            WS_OVERLAPPEDWINDOW | WS_VISIBLE,
+            0, // dwExStyle - Extended Window Style
+            name.as_ptr(), // lpClassName
+            title.as_ptr(), // lpWindowName
+            WS_OVERLAPPEDWINDOW | WS_VISIBLE, // dwStyle
             CW_USEDEFAULT, // X
             CW_USEDEFAULT, // Y
-            CW_USEDEFAULT, // WIDTH
-            CW_USEDEFAULT, // HEIGHT
-            null_mut(),
-            null_mut(),
-            hinstance,
-            null_mut());
+            300, // CW_USEDEFAULT, // WIDTH
+            200, //CW_USEDEFAULT, // HEIGHT
+            null_mut(), // hwndParent
+            null_mut(), // hMenu
+            hinstance,  // hInstance
+            null_mut()); // lParam
 
         return handle;
+    }
+}
+
+fn create_textbox(parent_hwnd: HWND, control_id: u32) -> HWND {
+    unsafe {
+    let hwnd = CreateWindowExW(
+        0,
+        win32_string("EDIT").as_ptr(),
+        null_mut(),
+        WS_BORDER | WS_CHILD | WS_VISIBLE | ES_LEFT,
+        5, 5, // x,y
+        50, 30, // w, h
+        parent_hwnd,
+        control_id as HMENU, //ID_EDITCHILD as HMENU,
+        GetWindowLongPtrW(parent_hwnd, GWLP_HINSTANCE) as HINSTANCE,
+        null_mut());
+    hwnd
     }
 }
 
@@ -145,20 +177,38 @@ unsafe extern "system" fn win32_wnd_proc(
     wparam: WPARAM,
     lparam: LPARAM) -> LRESULT {
     match msg {
-        WM_CREATE => 0,
+        WM_CREATE => {
+            let _ = create_textbox(hwnd, EDIT_CONTROL_ID);
+            0
+        },
         WM_DESTROY => { PostQuitMessage(0); 0 },
         _ => DefWindowProcW(hwnd, msg, wparam, lparam)
     }
 }
 
+static EDIT_CONTROL_ID: u32 = 10;
 
 fn main() {
+    //unsafe { AllocConsole(); }
+    println!("hello");
+    let icc = INITCOMMONCONTROLSEX {
+       dwSize: std::mem::size_of::<INITCOMMONCONTROLSEX>() as u32,
+       dwICC: ICC_BAR_CLASSES
+    };
     let hwnd = create_window("winapp", "my win app");
     unsafe {
+        InitCommonControlsEx(&icc);
         loop {
             let mut msg = mem::MaybeUninit::<MSG>::zeroed().assume_init();
             if GetMessageW(&mut msg, hwnd, 0, 0) > 0 {
                 TranslateMessage(&msg);
+                /*match(msg.message) {
+                    WM_CREATE => {
+                        let _ = create_textbox(hwnd, edit_control_id);
+                        println!("1");
+                    },
+                    _ => { }
+                }*/
                 DispatchMessageW(&msg);
                 continue
             }
