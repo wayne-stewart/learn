@@ -52,63 +52,64 @@ use winapi::{
             ICC_BAR_CLASSES
         },
         winuser::{
-        // WNDCLASS
-        WNDCLASSW,
-        CS_HREDRAW,
-        CS_VREDRAW,
-        CS_OWNDC,
-        CW_USEDEFAULT,
-        RegisterClassW,
-        SetClassLongW,
-        GetWindowLongPtrW,
-        GWLP_HINSTANCE,
+            // WNDCLASS
+            WNDCLASSW,
+            CS_HREDRAW,
+            CS_VREDRAW,
+            CS_OWNDC,
+            CW_USEDEFAULT,
+            RegisterClassW,
+            SetClassLongW,
+            GetWindowLongPtrW,
+            GWLP_HINSTANCE,
 
-        // CreateWindow
-        WS_OVERLAPPEDWINDOW,
-        WS_VISIBLE,
-        WS_CHILD,
-        WS_BORDER,
-        ES_LEFT,
-        CreateWindowExW,
+            // CreateWindow
+            WS_OVERLAPPEDWINDOW,
+            WS_VISIBLE,
+            WS_CHILD,
+            WS_BORDER,
+            ES_LEFT,
+            CreateWindowExW,
 
-        // Message Loop
-        TranslateMessage,
-        DispatchMessageW,
-        GetMessageW,
-        DefWindowProcW,
-        PostQuitMessage,
-        PostMessageW,
-        MSG,
+            // Message Loop
+            TranslateMessage,
+            DispatchMessageW,
+            GetMessageW,
+            DefWindowProcW,
+            PostQuitMessage,
+            PostMessageW,
+            MSG,
 
-        // Message Constants
-        WM_USER,
-        WM_CREATE,
-        WM_DESTROY,
-        WM_PAINT,
-        WM_SIZE,
-        WM_SETCURSOR,
-        WM_MOUSEMOVE,
-        WM_LBUTTONDOWN,
-        WM_LBUTTONUP,
-        WM_KEYDOWN,
-        WM_KEYUP,
-        WM_CHAR,
+            // Message Constants
+            WM_USER,
+            WM_CREATE,
+            WM_DESTROY,
+            WM_PAINT,
+            WM_SIZE,
+            WM_SETCURSOR,
+            WM_MOUSEMOVE,
+            WM_LBUTTONDOWN,
+            WM_LBUTTONUP,
+            WM_KEYDOWN,
+            WM_KEYUP,
+            WM_CHAR,
 
-        // Cursors
-        LoadCursorW,
-        SetCursor,
-        IDC_ARROW,
-        IDC_WAIT,
-        IDC_HAND,
-        IDC_IBEAM,
+            // Cursors
+            LoadCursorW,
+            SetCursor,
+            IDC_ARROW,
+            IDC_WAIT,
+            IDC_HAND,
+            IDC_IBEAM,
 
-        // Icons
-        LoadIconW,
-        IDI_APPLICATION,
+            // Icons
+            LoadIconW,
+            IDI_APPLICATION,
 
-        // Color
-        COLOR_WINDOW,
-    }}
+            // Color
+            COLOR_WINDOW,
+        }
+    }
 };
 
 fn win32_string(value: &str) -> Vec<u16> {
@@ -190,7 +191,6 @@ static EDIT_CONTROL_ID: u32 = 10;
 
 fn main() {
     //unsafe { AllocConsole(); }
-    println!("hello");
     let icc = INITCOMMONCONTROLSEX {
        dwSize: std::mem::size_of::<INITCOMMONCONTROLSEX>() as u32,
        dwICC: ICC_BAR_CLASSES
@@ -198,17 +198,10 @@ fn main() {
     let hwnd = create_window("winapp", "my win app");
     unsafe {
         InitCommonControlsEx(&icc);
+        let mut msg = mem::MaybeUninit::<MSG>::zeroed().assume_init();
         loop {
-            let mut msg = mem::MaybeUninit::<MSG>::zeroed().assume_init();
             if GetMessageW(&mut msg, hwnd, 0, 0) > 0 {
                 TranslateMessage(&msg);
-                /*match(msg.message) {
-                    WM_CREATE => {
-                        let _ = create_textbox(hwnd, edit_control_id);
-                        println!("1");
-                    },
-                    _ => { }
-                }*/
                 DispatchMessageW(&msg);
                 continue
             }
